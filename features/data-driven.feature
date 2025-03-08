@@ -1,8 +1,8 @@
 Feature: Data-Driven End-to-End Test
 
-  Scenario: Complete a purchase with credentials from JSON file
+  Scenario Outline: Complete a purchase with credentials from JSON file for <userType> user
     Given I am on the login page
-    When I log in with credentials from JSON file using "standard" user
+    When I log in with credentials from JSON file using "<userType>" user
     Then I should be on the products page
     When I add item "$29.99" to the cart
     And I add item "$9.99" to the cart
@@ -11,4 +11,10 @@ Feature: Data-Driven End-to-End Test
     When I fill checkout information with "Test", "User", "12345"
     And I continue the checkout process
     When I finish the checkout
-    Then I should see the order completion message 
+    Then I should see the order completion message
+
+    Examples:
+      | userType            |
+      | standard           |
+      | problem            |
+      | performance_glitch | 
